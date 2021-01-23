@@ -27,19 +27,19 @@ export const getExting = async (
 //   return res.json(results);
 // };
 
-// export const updateExting = async (
-//   req: Request,
-//   res: Response
-// ): Promise<Response> => {
-//   const user = await getRepository(User).findOne(req.params.id);
-//   if (user) {
-//     getRepository(User).merge(user, req.body);
-//     const results = await getRepository(User).save(user);
-//     return res.json(results);
-//   }
+export const updateExting = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const oneExting = await getRepository(Exting).findOne(req.params.id);
+  if (oneExting) {
+    getRepository(Exting).merge(oneExting, req.body);
+    const results = await getRepository(Exting).save(oneExting);
+    return res.json(results);
+  }
 
-//   return res.json({msg: 'Not user found'});
-// };
+  return res.json({msg: 'Exting Not found'});
+};
 
 // export const deleteExting = async (req: Request, res: Response): Promise<Response> => {
 //   const results = await getRepository(User).delete(req.params.id);

@@ -24,7 +24,6 @@ export const createCustomer = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  // const newUser = await getRepository(SuperHero).create(req.body);
   let customerGlobalReq = req.body;
   let extingO2m = customerGlobalReq.exting;
   let customerObj = new Customer();
@@ -41,14 +40,14 @@ export const createCustomer = async (
       exting.last_recharge = extingO2m.last_recharge;
       exting.next_recharge = extingO2m.next_recharge;
       exting.history = [];
-      extingO2m.history.forEach((item: any) => {
-        let history: History = new History();
-        history.extinguisher = item.extinguisher;
-        history.customer = item.customer;
-        history.user = item.user;
-        history.last_recharge = item.last_recharge;
-        exting.history.push(history);
-      })
+      // extingO2m.history.forEach((item: any) => {
+      //   let history: History = new History();
+      //   history.extinguisher = item.extinguisher;
+      //   history.customer = item.customer;
+      //   history.user = item.user;
+      //   history.last_recharge = item.last_recharge;
+      //   exting.history.push(history);
+      // })
       customerObj.exting.push(exting);
   });
   const results = await getRepository(Customer).save(customerObj);
@@ -76,12 +75,12 @@ export const updateCustomer = async (
     }
     if (customerGlobalReq.exting) {
       // delete previous exting data
-      customerData.exting.forEach(async exting => {
-          // await connection.manager.remove(Power, {id: power.id});
-          await getRepository(Exting).remove(exting);
-      });
+      // customerData.exting.forEach(async exting => {
+      //     // await connection.manager.remove(Power, {id: power.id});
+      //     await getRepository(Exting).remove(exting);
+      // });
       let updateExting = customerGlobalReq.exting;
-      customerData.exting = [];
+      // customerData.exting = [];
       // add new exting data
       updateExting.forEach((item: any) => {
         let exting: Exting = new Exting();
@@ -99,8 +98,3 @@ export const updateCustomer = async (
 
   return res.json({msg: 'Customer Not found'});
 };
-
-// export const deleteSuperHero = async (req: Request, res: Response): Promise<Response> => {
-//   const results = await getRepository(SuperHero).delete(req.params.id);
-//   return res.json(results);
-// };
